@@ -8,9 +8,10 @@
 /* стили секций с содержанием */
 section {
   display: none;
-  padding: 15px;
+  padding: 15px 0;
   background: #fff;
-/*  border-top: 1px solid #ddd;*/
+  border-top: 1px solid #ddd;
+  font-size: 20px;
 }
 .tabs input {
   display: none;
@@ -20,7 +21,6 @@ section {
   display: inline-block;
   margin: 0 0 -1px;
   padding: 15px 25px;
-  font-weight: 600;
   text-align: center;
   color: #aaa;
 }
@@ -34,7 +34,7 @@ section {
   color: #555;
   border: 1px solid #ddd;
   border-top: 3px solid #ffa500;
-  border-bottom: 1px solid #fff;
+/*  border-bottom: 1px solid #fff;*/
   background: #fff;
 }
 #tab1:checked ~ #content1,
@@ -43,4 +43,47 @@ section {
 #tab4:checked ~ #content4,
 #tab5:checked ~ #content5 {
   display: block;
+}
+span{
+  color:#848d95;
+}
+.votes span{
+  padding: 13px;
+}
+.answers span{
+  padding: 24px;
+}
+.view span{
+  padding: 11px;
+}
+table{
+  border-spacing: 10px;
+}
+tr{
+  border-bottom: 1px;
+}
+a{
+  text-decoration: none;
+  color:#07C;
+}
+a:visited{
+      color: #005999;
+}
+.counts{
+  color:#848d95;
+  font-size: 18px;
+}
+.tag{
+  color:#39739d;
+  background-color:#E1ECF4;
+  border-color: transparent;
+  padding: .1em .2em;
+}
+.tag:hover{
+      color: #33658a;
+    background-color: #cee0ed;
+    border-color: rgba(0,0,0,0)
+}
+.whoAsked{
+  font-size: 14px;
 }
