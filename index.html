@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding"
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/main.js"></script>
 </head>
 <body>
-<div class="tabs">
+<div class="tabs" ng-app="tabs" ng-controller="tabsData">
+
 	<input id="tab1" type="radio" name="tabs" checked>
 	<label for="tab1" title="Interesting">interesting</label>
 
@@ -21,26 +26,26 @@
 	<input id="tab5" type="radio" name="tabs">
 	<label for="tab5" title="month">month</label>
 
-	<section id="content1">
+	<section id="content1" ng-repeat="x in myData">
 		<table>
 			<tr>
 				<td>
 					<div class="votes">
-						<span>0</span>
+						<span>{{x.votes}}</span>
 						<div class="counts">votes</div>
 					</div>
 				</td>
 
 				<td>
 					<div class="answers">
-						<span>0</span>
+						<span>{{x.answers}}</span>
 						<div class="counts">answers</div>
 					</div>
 				</td>
 
 				<td>
 					<div class="view">
-						<span>0</span>
+						<span>{{x.view}}</span>
 						<div class="counts">view</div>
 					</div>
 				</td>
@@ -48,7 +53,7 @@
 					<table>
 						<tr>
 							<td>
-								<a href="#test">Aurelia Fetch Client - Stop Chain on Interception</a>
+								<a href="{{x.link}}">{{x.name}}</a>
 							</td>
 						</tr>
 						<tr>
@@ -62,7 +67,7 @@
 
 							<td>
 								<div class="whoAsked">
-									<div>Asked time ago name</div>
+									<div>Asked {{x.time}} ago {{x.userName}}</div>
 								</div>
 							</td>
 
