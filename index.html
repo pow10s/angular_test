@@ -59,9 +59,7 @@
 						<tr>
 							<td>
 								<div class="tags">
-									<a class="tag" href="#testTag">tag</a>
-									<a class="tag" href="#testTag">tag</a>
-									<a class="tag" href="#testTag">tag</a>
+									<a class="tag"  ng-repeat="tags in x.tags" href="{{tags.tagLink}}">{{tags.tagName}}</a>
 								</div>
 							</td>
 
@@ -83,28 +81,59 @@
 		</table>
 	</section>
 
-	<section id="content2">
-		<p>
-			Some text2
-		</p>
-	</section>
+	<section id="content2" ng-repeat="x in myData2">
+		<table>
+			<tr>
+				<td>
+					<div class="votes">
+						<span>{{x.votes}}</span>
+						<div class="counts">votes</div>
+					</div>
+				</td>
 
-	<section id="content3">
-		<p>
-			Some text3
-		</p>
-	</section>
+				<td>
+					<div class="answers">
+						<span>{{x.answers}}</span>
+						<div class="counts">answers</div>
+					</div>
+				</td>
 
-	<section id="content4">
-		<p>
-			Some text4
-		</p>
-	</section>
+				<td>
+					<div class="view">
+						<span>{{x.view}}</span>
+						<div class="counts">view</div>
+					</div>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td>
+								<a href="{{x.link}}">{{x.name}}</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="tags">
+									<a class="tag"  ng-repeat="tags in x.tags" href="{{tags.tagLink}}">{{tags.tagName}}</a>
+								</div>
+							</td>
 
-	<section id="content5">
-		<p>
-			Some text5
-		</p>
+							<td>
+								<div class="whoAsked">
+									<div>Asked {{x.time}} ago {{x.userName}}</div>
+								</div>
+							</td>
+
+						</tr>
+						
+					</table>
+				</td>
+
+			</tr>
+
+
+
+		</table>
 	</section>
 </div>
 </body>

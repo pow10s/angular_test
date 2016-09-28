@@ -1,11 +1,11 @@
-/* Базовый контейнер табов */
+
 .tabs {
   min-width: 320px;
   max-width: 800px;
   padding: 0px;
   margin: 0 auto; 
 }
-/* стили секций с содержанием */
+
 section {
   display: none;
   padding: 15px 0;
@@ -16,7 +16,7 @@ section {
 .tabs input {
   display: none;
 }
-/* стили вкладок (табов) */
+
 .tabs label {
   display: inline-block;
   margin: 0 0 -1px;
@@ -29,12 +29,12 @@ section {
   cursor: pointer;
   background-color: rgba(132,141,149,0.05);
 }
-/* стили для активной вкладки */
+
 .tabs input:checked + label {
   color: #555;
   border: 1px solid #ddd;
   border-top: 3px solid #ffa500;
-/*  border-bottom: 1px solid #fff;*/
+
   background: #fff;
 }
 #tab1:checked ~ #content1,
@@ -78,6 +78,7 @@ a:visited{
   background-color:#E1ECF4;
   border-color: transparent;
   padding: .1em .2em;
+  margin: 0.2em;
 }
 .tag:hover{
       color: #33658a;
@@ -86,4 +87,6 @@ a:visited{
 }
 .whoAsked{
   font-size: 14px;
+  position: absolute;
+  left: 63%;
 }
