@@ -90,3 +90,10 @@ a:visited{
   position: absolute;
   left: 63%;
 }
+
+.ask{
+    min-width: 320px;
+  max-width: 800px;
+  padding: 0px;
+  margin: 0 auto; 
+}
