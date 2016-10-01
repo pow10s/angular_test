@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding"
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
+<div class="tabs" ng-app="tabs" ng-controller="tabsData">
+
+	<input id="tab1" type="radio" name="tabs" checked>
+	<label for="tab1" title="Interesting">interesting</label>
+
+	<input id="tab2" type="radio" name="tabs">
+	<label for="tab2" title="featured">featured</label>
+
+	<input id="tab3" type="radio" name="tabs">
+	<label for="tab3" title="hot">hot</label>
+
+	<input id="tab4" type="radio" name="tabs">
+	<label for="tab4" title="week">week</label>
+
+	<input id="tab5" type="radio" name="tabs">
+	<label for="tab5" title="month">month</label>
+
+	<section id="content1" ng-repeat="x in myData">
+		<table>
+			<tr>
+				<td>
+					<div class="votes">
+						<span>{{x.votes}}</span>
+						<div class="counts">votes</div>
+					</div>
+				</td>
+
+				<td>
+					<div class="answers">
+						<span>{{x.answers}}</span>
+						<div class="counts">answers</div>
+					</div>
+				</td>
+
+				<td>
+					<div class="view">
+						<span>{{x.view}}</span>
+						<div class="counts">view</div>
+					</div>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td>
+								<a href="{{x.link}}">{{x.name}}</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="tags">
+									<a class="tag"  ng-repeat="tags in x.tags" href="{{tags.tagLink}}">{{tags.tagName}}</a>
+								</div>
+							</td>
+
+							<td>
+								<div class="whoAsked">
+									<div>Asked {{x.time}} ago {{x.userName}}</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</section>
+</div>
+</body>
+</html>
