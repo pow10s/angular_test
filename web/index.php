@@ -12,9 +12,22 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 
 // Register Provider to DB
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options' => array(
-        'driver' => 'pdo_sqlite',
-        'path' => __DIR__ . '/../db/messenger.sqlite',
+    'dbs.options' => array (
+        'mysql_read' => array(
+            'driver'    => 'pdo_mysql',
+            'host'      => 'localhost',
+            'dbname'    => 'angularTest',
+            'user'      => 'root',
+            'password'  => '',
+
+        ),
+        'mysql_write' => array(
+            'driver'    => 'pdo_mysql',
+            'host'      => 'localhost',
+            'dbname'    => 'angularTest',
+            'user'      => 'root',
+            'password'  => '',
+        ),
     ),
 ));
 
@@ -28,7 +41,7 @@ $app->before(function (Request $request) {
 });
 
 //Mount needed controllers
-$app->mount('/users', new Messenger\UserController());
+$app->mount('/questions', new Messenger\UserController());
 $app->mount('/users/{user_id}/messages', new Messenger\MessageController());
 
 $app->error(function (\Exception $e, $code) use ($app) {

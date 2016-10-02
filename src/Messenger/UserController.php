@@ -63,7 +63,7 @@ class UserController implements ControllerProviderInterface
      */
     public function getAll(Application $app)
     {
-        $sql = "SELECT * FROM `users`";
+        $sql = "SELECT * FROM `questions`";
         $users = $app['db']->fetchAll($sql);
 
         return $app->json($users);
@@ -103,12 +103,13 @@ class UserController implements ControllerProviderInterface
 
             return $app->json(array('response' => 'fail', 'errors' => $errorsArray), 400);
         }
-        $insertUsersQuery = "INSERT INTO `users`(`name`,`email`,`password`) VALUES(?,?,?)";
+        $insertUsersQuery = "INSERT INTO `questions`(`title`,`text`,`tags`,'user') VALUES(?,?,?,?)";
 
         $addUserResult = $app['db']->executeUpdate($insertUsersQuery, array(
-            $request->request->get("name"),
-            $request->request->get("email"),
-            $request->request->get("password"),
+            $request->request->get("QuestionTitle"),
+            $request->request->get("textArea"),
+            $request->request->get("tags"),
+            $request->request->get("userName"),
         ));
 
         if (!$addUserResult) {
@@ -268,7 +269,7 @@ class UserController implements ControllerProviderInterface
      */
     private function getUserById($id, $app)
     {
-        $userQuery = "SELECT * FROM `users` WHERE `id`=?";
+        $userQuery = "SELECT * FROM `questions` WHERE `id`=?";
         $user = $app['db']->fetchArray($userQuery, array($id));
 
         return $user;
