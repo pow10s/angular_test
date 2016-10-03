@@ -41,8 +41,7 @@ $app->before(function (Request $request) {
 });
 
 //Mount needed controllers
-$app->mount('/questions', new Messenger\UserController());
-$app->mount('/users/{user_id}/messages', new Messenger\MessageController());
+$app->mount('/questions', new StackOverflow\QuestionController());
 
 $app->error(function (\Exception $e, $code) use ($app) {
     return $app->json(array("error" => $e->getMessage()), $code);
