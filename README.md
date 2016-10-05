@@ -4,6 +4,7 @@
 1. git clone files
 <br>
 2. use command composer install
+<br>
 3.DB connecting settings in web/index.php
 <br>
 4.http://DOMAIN/web/questions.php - main page
