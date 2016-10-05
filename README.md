@@ -5,8 +5,10 @@
 <br>
 2. use command composer install
 <br>
-3.DB connecting settings in web/index.php
+3.import databse from db folder
 <br>
-4.http://DOMAIN/web/questions.php - main page
+4.DB connecting settings in web/index.php
+<br>
+5.http://DOMAIN/web/questions.php - main page
 
 Used OpenServer. PHP microframework Silex, angularjs, html,css
