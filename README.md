@@ -1,11 +1,10 @@
 # angular_test(how to run project)
 
-1.Create project folder
 <br>
-2.Upload files in project folder
+1. git clone files
 <br>
-3.DB connecting settings in web/index.php
+2.DB connecting settings in web/index.php
 <br>
-4.http://DOMAIN/web/questions.php - main page
+3.http://DOMAIN/web/questions.php - main page
 
-Used OpenServer
+Used OpenServer. PHP microframework Silex, angularjs, html,css
