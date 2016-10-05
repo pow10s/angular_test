@@ -47,7 +47,7 @@ app.controller('postController', function($scope, $http,$window) {
         $http.post('questions/test',$scope.question)
           .success(function (data) {
             console.log(data);
-            $window.location.href = "/web/questions.php"
+            $window.location.href = "questions.php"
 
         })
         };
