@@ -25,8 +25,8 @@
 		<input id="tab3" type="radio" name="tabs">
 		<label for="tab3" title="month">month</label>
 
-		<section id="content1" ng-repeat="x in newRecord | filter:search:strict ">
-			<table>
+		<section class="tabSection" id="content1" ng-repeat="x in newRecord | filter:search:strict ">
+			<table class="outerTable">
 				<tr>
 					<td>
 						<div class="votes">
@@ -50,7 +50,7 @@
 					</td>
 
 					<td>
-						<table>
+						<table class="innerTable">
 							<tr>
 								<td>
 									<a href="{{x.link}}">{{x.title}}</a>
@@ -69,8 +69,8 @@
 			</table>
 		</section>
 
-		<section id="content2" ng-repeat="x in weekRecord | filter:search:strict ">
-			<table>
+		<section class="tabSection" id="content2" ng-repeat="x in weekRecord | filter:search:strict ">
+			<table class="outerTable">
 				<tr>
 					<td>
 						<div class="votes">
@@ -93,7 +93,7 @@
 						</div>
 					</td>
 					<td>
-						<table>
+						<table class="innerTable">
 							<tr>
 								<td>
 									<a href="{{x.link}}">{{x.title}}</a>
@@ -112,8 +112,8 @@
 			</table>
 		</section>
 
-		<section id="content3" ng-repeat="x in monthRecord | filter:search:strict ">
-			<table>
+		<section class="tabSection" id="content3" ng-repeat="x in monthRecord | filter:search:strict ">
+			<table class="outerTable">
 				<tr>
 					<td>
 						<div class="votes">
@@ -136,7 +136,7 @@
 						</div>
 					</td>
 					<td>
-						<table>
+						<table class="innerTable">
 							<tr>
 								<td>
 									<a href="{{x.link}}">{{x.title}}</a>
