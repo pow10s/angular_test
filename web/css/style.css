@@ -99,7 +99,7 @@ a:visited{
 /*TABS BEGIN*/
 
 /*POPUP BEGIN*/
-.overlay {
+.overlay{
   display: none;
   position: fixed;
   left: 28%;
@@ -110,8 +110,8 @@ a:visited{
   width: 40%;
   height: 60%;
   z-index: 2;
-    }
-.fade {
+  }
+.fade{
   display: none;
   position: fixed;
   left: 0%;
