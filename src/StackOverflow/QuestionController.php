@@ -46,29 +46,9 @@ class QuestionController implements ControllerProviderInterface
         );
 
         $factory->post(
-            '/',
+            '/test',
             'StackOverflow\QuestionController::create'
         );
-
-/*        $factory->put(
-            '/{id}',
-            'StackOverflow\QuestionController::update'
-        );
-
-        $factory->patch(
-            '/{id}',
-            'StackOverflow\QuestionController::patch'
-        );
-
-        $factory->options(
-            '/',
-            'StackOverflow\QuestionController::options'
-        );
-
-        $factory->delete(
-            '/{id}',
-            'StackOverflow\QuestionController::delete'
-        );*/
 
         return $factory;
     }
@@ -92,7 +72,7 @@ class QuestionController implements ControllerProviderInterface
      */
     public function getNewQuestions(Application $app)
     {
-        $sql = "SELECT * FROM `questions` WHERE `created_at` > (NOW() - interval 7 day) AND `created_at` > (NOW() - interval 1 month)";
+        $sql = "SELECT * FROM `questions` WHERE `created_at` > CURDATE()";
         $questions = $app['db']->fetchAll($sql);
 
         return $app->json($questions);
@@ -103,7 +83,7 @@ class QuestionController implements ControllerProviderInterface
      */
     public function getWeekQuestions(Application $app)
     {
-        $sql = "SELECT * FROM `questions` WHERE `created_at` < (NOW() - interval 7 day) AND `created_at` > (NOW() - interval 1 month)";
+        $sql = "SELECT * FROM `questions` WHERE `created_at` <= ( NOW() - INTERVAL 7 DAY ) ";
         $questions = $app['db']->fetchAll($sql);
         
         return $app->json($questions);
@@ -115,7 +95,7 @@ class QuestionController implements ControllerProviderInterface
      */
     public function getMonthQuestions(Application $app)
     {
-        $sql = "SELECT * FROM `questions` WHERE `created_at` < (NOW() - interval 1 month)";
+        $sql = "SELECT * FROM `questions` WHERE `created_at` <= ( NOW() - INTERVAL 1 MONTH ) ";
         $questions = $app['db']->fetchAll($sql);
         
         return $app->json($questions);
@@ -123,7 +103,7 @@ class QuestionController implements ControllerProviderInterface
 
     /**
      * @param Application $app
-     * @param $id - user Id
+     * @param $id - question Id
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function get(Application $app, $id)
@@ -145,7 +125,6 @@ class QuestionController implements ControllerProviderInterface
     public function create(Application $app, Request $request)
     {
         $errors = $this->validate($request->request->all(), $app);
-
         if (count($errors) > 0) {
             $errorsArray = array();
 
@@ -155,83 +134,26 @@ class QuestionController implements ControllerProviderInterface
 
             return $app->json(array('response' => 'fail', 'errors' => $errorsArray), 400);
         }
-        $insertUsersQuery = "INSERT INTO `users`(`title`,`text`,`tags`,`user`) VALUES(?,?,?,?)";
+        $insertQuestionQuery = "INSERT INTO `questions`(`title`,`text`,`tags`) VALUES(?,?,?)";
 
-        $addUserResult = $app['db']->executeUpdate($insertUsersQuery, array(
+        $addQuestionResult = $app['db']->executeUpdate($insertQuestionQuery, array(
             $request->request->get("title"),
             $request->request->get("text"),
             $request->request->get("tags"),
-            $request->request->get("user"),
         ));
 
-        if (!$addUserResult) {
+        if (!$addQuestionResult) {
             return $app->json(array('response' => 'fail', 'errors' => 'Conflict'), 409);
         }
-        $userId = $app['db']->lastInsertId();
+        $questionId = $app['db']->lastInsertId();
 
         return $app->json(
             array('status' => 'success', 'errors' => ''),
             201,
-            array('Location' => $request->getUri() . $userId)
+            array('Location' => $request->getUri() . $questionId)
         );
     }
 
-    /**
-     * @param Application $app
-     * @param Request $request
-     * @param $id
-     * @param bool|false $ignoreBlank - ignoring empty field validation to realize patch request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function update(Application $app, Request $request, $id, $ignoreBlank = false)
-    {
-        $user = $this->getUserById($id, $app);
-
-        if (!$user) {
-            return $app->json(array('status' => 'fail', 'errors' => 'Not found'), 404);
-        }
-        $errors = $this->validate($request->request->all(), $app, $ignoreBlank);
-
-        if (count($errors) > 0) {
-            $errorsArray = array();
-
-            foreach ($errors as $error) {
-                $errorsArray[$error->getPropertyPath()] = $error->getMessage();
-            }
-
-            return $app->json(array('response' => 'fail', 'errors' => $errorsArray), 400);
-        }
-
-        //If some fields are empty(for example in patch request), query doesn't change them
-        $updateUsersQuery = "UPDATE `users` SET `name`=coalesce(?, `name`),`email`=coalesce(?, `email`),`password`=coalesce(?, `password`) WHERE id=?";
-
-        $updateResult = $app['db']->executeUpdate($updateUsersQuery, array(
-            $request->request->get("name"),
-            $request->request->get("email"),
-            $request->request->get("password"),
-            $id
-        ));
-
-        if (!$updateResult) {
-            return $app->json(array('response' => 'fail', 'errors' => 'Conflict'), 409);
-        }
-
-        return $app->json(
-            array('status' => 'success', 'errors' => ''),
-            204
-        );
-    }
-
-    /**
-     * @param Application $app
-     * @param Request $request
-     * @param $id - User id
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function patch(Application $app, Request $request, $id)
-    {
-        return $this->update($app, $request, $id, true);
-    }
 
     /**
      * @param Application $app
@@ -240,78 +162,6 @@ class QuestionController implements ControllerProviderInterface
     public function options(Application $app)
     {
         return $app->json('', 200, array('Allow' => 'GET, POST, PUT, PATCH, DELETE, OPTIONS'));
-    }
-
-    /**
-     * @param Application $app
-     * @param $id - User id
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function delete(Application $app, $id)
-    {
-        $user = $this->getUserById($id, $app);
-
-        if (!$user) {
-            return $app->json(array('status' => 'fail', 'errors' => 'Not found'), 404);
-        }
-        $deleteResult = $app['db']->delete('users', array('id' => $id));
-
-        if (!$deleteResult) {
-            return $app->json(array('response' => 'fail', 'errors' => 'Conflict'), 409);
-        }
-
-        return $app->json(
-            array('status' => 'success', 'errors' => ''),
-            204
-        );
-    }
-
-    /**
-     * @param $user
-     * @param Application $app
-     * @param bool|false $ignoreBlank - ignoring empty field validation to realize patch request
-     * @return mixed
-     */
-    private function validate($user, Application $app, $ignoreBlank = false)
-    {
-        $nameValidation = array();
-        $emailValidation = array();
-        $passwordValidation = array();
-        $constraintArray = array();
-
-        if (isset($user['name'])) {
-            $nameValidation[] = new Assert\Length(array('min' => 2));
-        }
-
-        if (isset($user['email'])) {
-            $emailValidation[] = new Assert\Email();
-        }
-
-        if (isset($user['password'])) {
-            $passwordValidation[] = new Assert\Length(array('min' => 6));
-        }
-
-        if (!$ignoreBlank) {
-            $nameValidation[] = new Assert\NotBlank();
-            $emailValidation[] = new Assert\NotBlank();
-            $passwordValidation[] = new Assert\NotBlank();
-        }
-
-        if (count($nameValidation) > 0) {
-            $constraintArray['name'] = $nameValidation;
-        }
-
-        if (count($emailValidation) > 0) {
-            $constraintArray['email'] = $emailValidation;
-        }
-
-        if (count($passwordValidation) > 0) {
-            $constraintArray['password'] = $passwordValidation;
-        }
-        $constraint = new Assert\Collection($constraintArray);
-        $errors = $app['validator']->validateValue($user, $constraint);
-
-        return $errors;
     }
 
     /**
@@ -325,5 +175,22 @@ class QuestionController implements ControllerProviderInterface
         $question = $app['db']->fetchArray($questionQuery, array($id));
 
         return $question;
+    }
+
+    /**
+     * @param $question
+     * @param Application $app
+     * @return mixed
+     */
+    private function validate($question, Application $app)
+    {
+       
+        $constraint = new Assert\Collection(array(
+            'title' => new Assert\Length(array('min' => 10)),
+            'text' => new Assert\Length(array('min' => 10)),
+            'tags' => new Assert\Length(array('min' => 2,'max' => 10)),
+            ));
+
+        return $app['validator']->validateValue($question, $constraint);
     }
 }

@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html ng-app="tabs">
+<html ng-app="main">
 <head>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-	<title></title>
+	<title>All questions</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="js/angular.min.js"></script>
+	<script src="js/angular-modal-service.js" type="text/javascript"></script>
 	<script src="js/main.js"></script>
+	
 </head>
 <body>
+<nav class="menu">
+	<a href class="askBtn" ng-controller="PopupController" ng-click="showForm()">Ask question</a>
+	<div class="search"><label>Filter: <input class="input" ng-model="search.title"></label></div>
+</nav>
 
 <div class="tabs" ng-controller="tabsData">
-
 	<input id="tab1" type="radio" name="tabs" checked>
 	<label for="tab1" title="Interesting">today</label>
 
@@ -20,7 +25,7 @@
 	<input id="tab3" type="radio" name="tabs">
 	<label for="tab3" title="month">month</label>
 
-	<section id="content1" ng-repeat="x in newRecord">
+	<section id="content1" ng-repeat="x in newRecord | filter:search:strict ">
 		<table>
 			<tr>
 				<td>
@@ -63,7 +68,7 @@
 		</table>
 	</section>
 
-	<section id="content2" ng-repeat="x in weekRecord">
+	<section id="content2" ng-repeat="x in weekRecord | filter:search:strict ">
 		<table>
 			<tr>
 				<td>
@@ -106,7 +111,7 @@
 		</table>
 	</section>
 
-	<section id="content3" ng-repeat="x in monthRecord">
+	<section id="content3" ng-repeat="x in monthRecord | filter:search:strict ">
 		<table>
 			<tr>
 				<td>

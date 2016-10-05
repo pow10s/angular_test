@@ -12,22 +12,14 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 
 // Register Provider to DB
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'dbs.options' => array (
-        'mysql_read' => array(
-            'driver'    => 'pdo_mysql',
+    'db.options' => array (
+        'driver'    => 'pdo_mysql',
             'host'      => 'localhost',
             'dbname'    => 'angularTest',
             'user'      => 'root',
             'password'  => '',
+            'charset'   => 'utf8mb4',
 
-        ),
-        'mysql_write' => array(
-            'driver'    => 'pdo_mysql',
-            'host'      => 'localhost',
-            'dbname'    => 'angularTest',
-            'user'      => 'root',
-            'password'  => '',
-        ),
     ),
 ));
 

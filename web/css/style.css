@@ -1,4 +1,4 @@
-
+/*TABS BEGIN*/
 .tabs {
   min-width: 320px;
   max-width: 800px;
@@ -39,9 +39,7 @@ section {
 }
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4,
-#tab5:checked ~ #content5 {
+#tab3:checked ~ #content3{
   display: block;
 }
 span{
@@ -97,3 +95,77 @@ a:visited{
   padding: 0px;
   margin: 0 auto; 
 }
+/*TABS BEGIN*/
+
+/*POPUP BEGIN*/
+#overlay {
+    display: none;
+    position: fixed;
+    left: 28%;
+    top: 25%;
+    padding: 25px;
+    border: 2px solid black;
+    background-color: #ffffff;
+    width: 40%;
+    height: 60%;
+    z-index: 2;
+    }
+#fade {
+    display: none;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    background-color: black;
+    -moz-opacity: 0.7;
+    opacity: .70;
+    filter: alpha(opacity=70);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+form{
+  text-align: center;
+}
+a.close{
+    position: absolute;
+    right: 7%;
+}
+/*POPUP END*/
+a.askBtn{
+    padding: 5px;
+    color: #FFF;
+    background: #9fa6ad;
+    transition: background .15s;
+    float: right;
+}
+
+a.askBtn:hover{
+  background: #f69c55;
+}
+nav.menu{
+  min-width: 320px;
+  max-width: 800px;
+  padding: 0px;
+  margin: 0 auto; 
+}
+.search{
+  float:right;
+}
+.input{
+  height: 23.7px;
+    width: 73%;
+}
+.submitBtn{
+  width: 154px;
+  height: 41px;
+  display: inline-block;
+  color: white;
+  font-weight: 700;
+  padding: .5em 2em;
+  border: 2px solid;
+  border-radius: 1px;
+  transition: 0.2s;
+}
+
+.submitBtn:hover { background: #ffa500; }
+
