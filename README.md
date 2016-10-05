@@ -3,8 +3,9 @@
 <br>
 1. git clone files
 <br>
-2.DB connecting settings in web/index.php
+2. use command composer install
+3.DB connecting settings in web/index.php
 <br>
-3.http://DOMAIN/web/questions.php - main page
+4.http://DOMAIN/web/questions.php - main page
 
 Used OpenServer. PHP microframework Silex, angularjs, html,css
