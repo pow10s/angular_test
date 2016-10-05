@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `answers` int(11) DEFAULT '0' COMMENT 'count answers',
   `view` int(11) DEFAULT '0' COMMENT 'count views',
   `tags` varchar(100) DEFAULT NULL COMMENT 'question tags',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 --
