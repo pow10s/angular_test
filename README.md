@@ -1,4 +1,4 @@
-# angular_test(how tu run project)
+# angular_test(how to run project)
 
 1.Create project folder
 <br>
